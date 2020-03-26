@@ -31,7 +31,7 @@ death_color <- "red"
 #------------------ Data ------------------
 df <- coronavirus %>%
   # dplyr::filter(date == max(date)) %>%
-  dplyr::filter(Country.Region == "Belgium") %>%
+  dplyr::filter(Country.Region == "Malaysia") %>%
   dplyr::group_by(Country.Region, type) %>%
   dplyr::summarise(total = sum(cases)) %>%
   tidyr::pivot_wider(
@@ -49,7 +49,7 @@ df <- coronavirus %>%
   dplyr::mutate(country = factor(country, levels = country))
 
 df_daily <- coronavirus %>%
-  dplyr::filter(Country.Region == "Belgium") %>%
+  dplyr::filter(Country.Region == "Malaysia") %>%
   dplyr::group_by(date, type) %>%
   dplyr::summarise(total = sum(cases, na.rm = TRUE)) %>%
   tidyr::pivot_wider(
@@ -124,7 +124,7 @@ valueBox(
 Row
 -----------------------------------------------------------------------
 
-### **Daily cumulative cases by type** (Belgium only)
+### **Daily cumulative cases by type** (Malaysia only)
     
 ```{r}
 plotly::plot_ly(data = df_daily) %>%
@@ -227,28 +227,28 @@ daily_confirmed %>%
   plotly::plot_ly() %>%
   plotly::add_trace(
     x = ~date,
-    y = ~Belgium,
+    y = ~Malaysia,
     type = "scatter",
     mode = "lines+markers",
     name = "Belgium"
   ) %>%
   plotly::add_trace(
     x = ~date,
-    y = ~France,
+    y = ~Indonesia,
     type = "scatter",
     mode = "lines+markers",
     name = "France"
   ) %>%
   plotly::add_trace(
     x = ~date,
-    y = ~Spain,
+    y = ~Thailand,
     type = "scatter",
     mode = "lines+markers",
     name = "Spain"
   ) %>%
   plotly::add_trace(
     x = ~date,
-    y = ~Italy,
+    y = ~China,
     type = "scatter",
     mode = "lines+markers",
     name = "Italy"
@@ -277,10 +277,10 @@ daily_confirmed %>%
 ```{r daily_summary}
 df_EU <- coronavirus %>%
   # dplyr::filter(date == max(date)) %>%
-  dplyr::filter(Country.Region == "Belgium" |
-    Country.Region == "France" |
-    Country.Region == "Italy" |
-    Country.Region == "Spain") %>%
+  dplyr::filter(Country.Region == "Malaysia" |
+    Country.Region == "Indonesia" |
+    Country.Region == "Thailand" |
+    Country.Region == "China") %>%
   dplyr::group_by(Country.Region, type) %>%
   dplyr::summarise(total = sum(cases)) %>%
   tidyr::pivot_wider(
@@ -342,7 +342,7 @@ library(leaflet)
 library(leafpop)
 library(purrr)
 cv_data_for_plot <- coronavirus %>%
-  # dplyr::filter(Country.Region == "Belgium") %>%
+  # dplyr::filter(Country.Region == "Malaysia") %>%
   dplyr::filter(cases > 0) %>%
   dplyr::group_by(Country.Region, Province.State, Lat, Long, type) %>%
   dplyr::summarise(cases = sum(cases)) %>%
